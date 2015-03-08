@@ -16,35 +16,35 @@
 // A handler is a function that is called when a route is matched
 typedef int (handler *)(short event, ad_conn_t *conn, void *userdata);
 
-// Routes map methods and regexes to handlers.
-// Create a new route with aext_route_new.
+// A route maps a regex to a handler.
+// Create a new route with adext_route_new.
 //
-// aext_route_t *home_route = aext_route_new("^/$", HTTP_GET, index);
-// aext_route_t *blog_route = aext_route_new("^/blog/$", HTTP_GET, blog_index);
-// ...
-// aext_route_delete(r);
-typedef aext_route_s {
+// adext_route_t *home_route = adext_route_new("^/$", index);
+// adext_route_t *blog_route = adext_route_new("^/blog/$", blog_index);
+typedef adext_route_s {
     const char *uri,
-    const char *mehtod,
     regex_t *_uri_r,
     handler handler_cb
-} aext_route_t;
+} adext_route_t;
 
 // Creates a new route.
-route_t *aext_route_new(const char *uri, http_method method, route_cb handler);
+route_t *adext_route_new(const char *uri, route_cb handler);
 
 // Deletes the route.
-route_t *aext_route_delete(route_t *route);
+route_t *adext_route_free(route_t *route);
 
 // This handler implements the routing for the server.
 // Register this handler with ad_server_register_hook.
-int aext_http_router_handler(short event, ad_conn_t *conn, void *userdata);
+int adext_http_router_handler(short event, ad_conn_t *conn, void *userdata);
 
 // Returns true if the request_url matches the route's uri regex.
-bool aext_matches(route_t *route, const char *request_url);
+bool adext_matches(route_t *route, const char *request_url);
 
 // With this function we compile all the routes at the same time. You only
 // need to call this function once before running the server(ad_server_start).
-void aext_compile_routes(aext_route_t[] routes);
+void adext_compile_routes(adext_route_t[] routes);
+
+// Frees a list of routes.
+void adext_free_routes(adext_route_t[] routes);
 
 #endif
