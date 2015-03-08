@@ -13,6 +13,9 @@
 #include <stdbool.h>
 #include <regex.h>
 
+// A handler is a function that is called when a route is matched
+typedef int (handler *)(short event, ad_conn_t *conn, void *userdata);
+
 // Routes map methods and regexes to handlers.
 // Create a new route with aext_route_new.
 //
@@ -24,7 +27,7 @@ typedef aext_route_s {
     const char *uri,
     const char *mehtod,
     regex_t *_uri_r,
-    route_cb handler
+    handler handler_cb
 } aext_route_t;
 
 // Creates a new route.
