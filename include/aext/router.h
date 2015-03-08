@@ -43,6 +43,6 @@ bool aext_match(route_t *route, const char *request_url);
 
 // With this function we compile all the routes at the same time. You only
 // need to call this function once before running the server(ad_server_start).
-void compile_routes(aext_route_t[] routes);
+void aext_compile_routes(aext_route_t[] routes);
 
 #endif
