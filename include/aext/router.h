@@ -20,7 +20,6 @@
 // aext_route_t *blog_route = aext_route_new("^/blog/$", HTTP_GET, blog_index);
 // ...
 // aext_route_delete(r);
-//
 typedef aext_route_s {
     const char *uri,
     const char *mehtod,
@@ -39,7 +38,7 @@ route_t *aext_route_delete(route_t *route);
 int aext_http_router_handler(short event, ad_conn_t *conn, void *userdata);
 
 // Returns true if the request_url matches the route's uri regex.
-bool aext_match(route_t *route, const char *request_url);
+bool aext_matches(route_t *route, const char *request_url);
 
 // With this function we compile all the routes at the same time. You only
 // need to call this function once before running the server(ad_server_start).
