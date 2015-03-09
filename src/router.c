@@ -10,7 +10,7 @@
 // Initializes a new route.
 void adext_route_init(adext_route_t *route, const char *uri, handler_cb handle);
 
-// Compile the route's uri.
+// Function that compiles the route's regular expression(uri).
 void adext_compile_route(adext_route_t *route);
 
 // Returns true if the request_url matches the route's uri regex.
@@ -23,14 +23,13 @@ void adext_free_routes(adext_route_t *routes);
 adext_route_t *adext_route_new(const char *uri, handler_cb handle) {
     adext_route_t *route = (adext_route_t *) malloc(sizeof(adext_route_t));
     adext_route_init(route, uri, handle);
-    adext_compile_route(route);
     return route;
 }
 
 void adext_route_init(adext_route_t *route, const char *uri, handler_cb handle) {
     route->uri = uri;
     route->handler = handle;
-    route->_uri_r = (regex_t *) malloc(sizeof(regex_t));
+    adext_compile_route(route);
 }
 
 void adext_route_free(adext_route_t *route) {
@@ -39,6 +38,8 @@ void adext_route_free(adext_route_t *route) {
 }
 
 void adext_compile_route(adext_route_t *route) {
+
+    route->_uri_r = (regex_t *) malloc(sizeof(regex_t));
     int error = regcomp(route->_uri_r, route->uri, 0 | REG_EXTENDED);
 
     if (error) {
@@ -46,6 +47,5 @@ void adext_compile_route(adext_route_t *route) {
         exit(EXIT_FAILURE);
     }
 }
-
 
 #endif
