@@ -9,7 +9,7 @@ LIBS = -levent -levent_openssl -lqlibc -lasyncd
 
 all:
 	cd build/ ;\
-	gcc $(INC) -c -Wall -Werror -fpic  $(FILES) ;\
+	gcc -std=c99 $(INC) -c -Wall -Werror -fpic  $(FILES) ;\
 	gcc -shared -o $(LIBNAME) router.o
 
 install:

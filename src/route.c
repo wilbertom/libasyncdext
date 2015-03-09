@@ -15,14 +15,8 @@
 
 #include <asyncdext/route.h>
 
-// Creates and initializes a new route.
-adext_route_t *adext_route_new(const char *uri, handler_cb handle);
-
 // Initializes a new route.
 void adext_route_init(adext_route_t *route, const char *uri, handler_cb handle);
-
-// Frees the route.
-void adext_route_free(adext_route_t *route);
 
 // Function that compiles the route's regular expression(uri).
 void adext_compile_route(adext_route_t *route);

@@ -45,9 +45,9 @@
 // Don't mess with any of the fields in this data structure.
 // If you do then it's your funeral.
 typedef struct adext_router_s {
-    adext_route_t *_routes;
-    int _size; // the number of routes we actually have
     int _capacity; // the number of routes we should have
+    int _size; // the number of routes we actually have
+    adext_route_t *_routes[];
 } adext_router_t;
 
 // Creates and initializes a new route. The capacity hints the library how many
