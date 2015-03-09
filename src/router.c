@@ -49,7 +49,7 @@ void adext_compile_route(adext_route_t *route) {
 }
 
 bool adext_route_matches(adext_route_t *route, const char *request_url) {
-    return !(regexec(route._uri_r, request_url, 0, NULL, 0));
+    return !(regexec(route->_uri_r, request_url, 0, NULL, 0));
 }
 
 #endif
