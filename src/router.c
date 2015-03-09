@@ -9,13 +9,31 @@
 // get our router from userdata and match the request url to one of it's
 // routes.
 int adext_http_router_handler(short event, ad_conn_t *conn, void *userdata) {
-    // adext_router_t *router = (adext_router_t *) userdata;
+
+    if (ad_http_get_status(conn) == AD_HTTP_REQ_DONE) {
+
+        adext_router_t *router = (adext_router_t *) userdata;
+        struct ad_http_s *extra = (struct ad_http_s*) ad_conn_get_extra(conn);
+        char *request_uri = extra->request.uri;
+
+        for (int i = 0; i < router->_size; i++) {
+            adext_route_t *r = router->_routes[i];
+
+            if (adext_route_matches(r, request_uri)) {
+                return r->handler(event, conn, userdata);
+            }
+        }
+
+    }
 
     return AD_OK;
+
 }
 
 adext_router_t *adext_router_new(int capacity) {
-    adext_router_t *router = (adext_router_t *) malloc(sizeof(adext_router_t));
+
+    int router_size = sizeof(adext_router_t) + (sizeof(adext_route_t) * capacity);
+    adext_router_t *router = (adext_router_t *) malloc(router_size);
     router->_capacity = capacity;
     router->_size = 0;
 
@@ -31,7 +49,16 @@ void adext_router_free(adext_router_t *router) {
 }
 
 void adext_router_add(adext_router_t *router, const char *uri, handler_cb handle) {
-    
+
+    router->_size++;
+
+    if (router->_size > router->_capacity) {
+        // TODO: Implement resize
+        printf("Router resizing is not implemented, reached capacity.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    router->_routes[router->_size - 1] = adext_route_new(uri, handle);
 
 }
 

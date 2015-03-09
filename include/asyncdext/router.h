@@ -17,12 +17,12 @@
 // It has a simple API based on regular expressions and callback functions.
 // To get started we create a new application router:
 //
-// adext_router_t *router = adext_router_new();
+// adext_router_t *router = adext_router_new(2);
 //
 // Once the router has been created we are going to add routes to it.
 //
-// adext_router_add("$^", index);
-// adext_router_add("$/blog/^", blog_index);
+// adext_router_add("^/$", index);
+// adext_router_add("^/blog/$", blog_index);
 //
 // The we want to add the router handler to the asyncd server. If you
 // don't register the hook, the router will not work.
