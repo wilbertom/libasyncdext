@@ -5,8 +5,7 @@ ARCHIVE = lib$(NAME).a
 FILES = ../src/router.c
 INC = -I ../include/
 
-LIBS = -levent -levent_openssl -lonig -lqlibc -lasyncd
-
+LIBS = -levent -levent_openssl -lqlibc -lasyncd
 
 all:
 	cd build/ ;\

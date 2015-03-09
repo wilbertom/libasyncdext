@@ -16,9 +16,15 @@ void adext_compile_route(adext_route_t *route);
 // Returns true if the request_url matches the route's uri regex.
 bool adext_route_matches(adext_route_t *route, const char *request_url);
 
-// Frees a list of routes.
-void adext_free_routes(adext_route_t *routes);
+// Creates and initializes a new route.
+adext_route_t *adext_route_new(const char *uri, handler_cb handle);
 
+// Frees the route.
+void adext_route_free(adext_route_t *route);
+
+// This handler implements the routing for the server.
+// Register this handler with ad_server_register_hook.
+int adext_http_router_handler(short event, ad_conn_t *conn, void *userdata);
 
 adext_route_t *adext_route_new(const char *uri, handler_cb handle) {
     adext_route_t *route = (adext_route_t *) malloc(sizeof(adext_route_t));
@@ -51,5 +57,6 @@ void adext_compile_route(adext_route_t *route) {
 bool adext_route_matches(adext_route_t *route, const char *request_url) {
     return !(regexec(route->_uri_r, request_url, 0, NULL, 0));
 }
+
 
 #endif
