@@ -40,4 +40,7 @@ libevent:
 qlibc:
         Copyright (c) 2010-2014 Seungyoung Kim.
 
+libasyncd:
+        Copyright (c) 2014 Seungyoung Kim.
+
 (end of LICENSE)
