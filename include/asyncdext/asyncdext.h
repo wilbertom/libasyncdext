@@ -1,5 +1,5 @@
 /**
- * aext.h
+ * asyncdext.h
  * libasyncd extensions.
  *
  * Wilberto Morales
