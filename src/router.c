@@ -14,7 +14,7 @@ void adext_route_init(adext_route_t *route, const char *uri, handler_cb handle);
 void adext_compile_route(adext_route_t *route);
 
 // Returns true if the request_url matches the route's uri regex.
-bool adext_matches(adext_route_t *route, const char *request_url);
+bool adext_route_matches(adext_route_t *route, const char *request_url);
 
 // Frees a list of routes.
 void adext_free_routes(adext_route_t *routes);
@@ -46,6 +46,10 @@ void adext_compile_route(adext_route_t *route) {
         printf("Error while compiling %s\n", route->uri);
         exit(EXIT_FAILURE);
     }
+}
+
+bool adext_route_matches(adext_route_t *route, const char *request_url) {
+    return !(regexec(route._uri_r, request_url, 0, NULL, 0));
 }
 
 #endif
