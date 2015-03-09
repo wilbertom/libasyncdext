@@ -30,7 +30,8 @@ void adext_router_free(adext_router_t *router) {
     free(router);
 }
 
-void adext_router_add(const char *uri, handler_cb handle) {
+void adext_router_add(adext_router_t *router, const char *uri, handler_cb handle) {
+    
 
 }
 

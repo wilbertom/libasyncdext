@@ -59,7 +59,7 @@ adext_router_t *adext_router_new(int capacity);
 void adext_router_free(adext_router_t *router);
 
 // Adds a new route to the router that maps the uri regex to the handler.
-void adext_router_add(const char *uri, handler_cb handle);
+void adext_router_add(adext_router_t *router, const char *uri, handler_cb handle);
 
 // Call this once after initializing your ad_server_t and registering the
 // ad_http_handler.
