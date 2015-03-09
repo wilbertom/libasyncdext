@@ -19,12 +19,15 @@
 //
 // adext_router_t *router = adext_router_new(2);
 //
+// We need to pass a capacity to the router, this dictates how many routes can
+// be added to the router. In the future we hope to dynamically resize it or
+// not need the capacity at all.
 // Once the router has been created we are going to add routes to it.
 //
 // adext_router_add("^/$", index);
 // adext_router_add("^/blog/$", blog_index);
 //
-// The we want to add the router handler to the asyncd server. If you
+// Then we want to add the router handler to the asyncd server. If you
 // don't register the hook, the router will not work.
 //
 // ad_server_register_hook(server, ad_http_handler, NULL);
@@ -44,6 +47,7 @@
 // A router collects a bunch of routes.
 // Don't mess with any of the fields in this data structure.
 // If you do then it's your funeral.
+// ** We do this because the author doesn't know C very well. **
 typedef struct adext_router_s {
     int _capacity; // the number of routes we should have
     int _size; // the number of routes we actually have
