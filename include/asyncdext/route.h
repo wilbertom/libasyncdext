@@ -31,4 +31,7 @@ adext_route_t *adext_route_new(const char *uri, handler_cb handle);
 // Frees the route.
 void adext_route_free(adext_route_t *route);
 
+// Returns true if the request_url matches the route's uri regex.
+bool adext_route_matches(adext_route_t *route, const char *request_url);
+
 #endif
