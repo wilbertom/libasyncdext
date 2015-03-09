@@ -2,7 +2,7 @@ NAME = asyncdext
 LIBNAME = lib$(NAME).so
 ARCHIVE = lib$(NAME).a
 
-FILES = ../src/router.c
+FILES = ../src/router.c ../src/route.c
 INC = -I ../include/
 
 LIBS = -levent -levent_openssl -lqlibc -lasyncd

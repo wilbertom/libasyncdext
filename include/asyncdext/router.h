@@ -11,7 +11,7 @@
 #define ASYNCD_EXT_ROUTER_H
 
 #include <asyncd/asyncd.h>
-#include <regex.h>
+#include <asyncdext/route.h>
 
 // This part of the library implements a small routing interface to libasyncd.
 // It has a simple API based on regular expressions and callback functions.
@@ -41,25 +41,19 @@
 //    ...
 // }
 
-// A handler is a function that is called when a route is matched
-typedef int (* handler_cb)(short event, ad_conn_t *conn, void *userdata);
-
-// A route maps a regex to a handler.
-// Create a new route with adext_route_new.
-typedef struct adext_route_s {
-    const char *uri;
-    handler_cb handler;
-    regex_t *_uri_r;
-} adext_route_t;
-
 // A router collects a bunch of routes.
+// Don't mess with any of the fields in this data structure.
+// If you do then it's your funeral.
 typedef struct adext_router_s {
     adext_route_t *_routes;
-    int _count;
+    int _size; // the number of routes we actually have
+    int _capacity; // the number of routes we should have
 } adext_router_t;
 
-// Creates and initializes a new route.
-adext_router_t *adext_router_new();
+// Creates and initializes a new route. The capacity hints the library how many
+// routes you will add to the router. Having this number be exact will be great
+// since it will avoid reallocating memory.
+adext_router_t *adext_router_new(int capacity);
 
 // Frees the router.
 void adext_router_free(adext_router_t *router);
