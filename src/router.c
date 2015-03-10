@@ -20,6 +20,7 @@ int adext_http_router_handler(short event, ad_conn_t *conn, void *userdata) {
             adext_route_t *r = router->_routes[i];
 
             if (adext_route_matches(r, request_uri)) {
+
                 return r->handler(event, conn, userdata);
             }
         }

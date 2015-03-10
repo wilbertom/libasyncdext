@@ -1,5 +1,9 @@
 
-#include <asyncdext.h>
+#ifndef ASYNCD_EXT_C
+#define ASYNCD_EXT_C
+
+#include <asyncd/asyncd.h>
+#include <asyncdext/asyncdext.h>
 
 int adext_404_handler(short event, ad_conn_t *conn, void *userdata) {
     if (ad_http_get_status(conn) == AD_HTTP_REQ_DONE) {
@@ -18,7 +22,10 @@ int adext_404_handler(short event, ad_conn_t *conn, void *userdata) {
 
 ad_server_t *adext_server_new(const char *address, const char *port) {
     ad_server_t *server = ad_server_new();
-    ad_set_option(server, "server.addr", address);
-    ad_set_option(server, "server.port", port)
+
+    ad_server_set_option(server, "server.addr", address);
+    ad_server_set_option(server, "server.port", port);
     return server;
 }
+
+#endif
